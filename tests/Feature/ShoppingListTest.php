@@ -49,4 +49,34 @@ class ShoppingListTest extends TestCase
             ->where('list.0.items.0.id', $shoppingList->items->first()->id)
         );
     }
+
+    /**
+     * Test can create an item and attach it to a list.
+     *
+     * @return void
+     */
+    public function testCreate()
+    {
+        $user = User::factory()->create();
+        $shoppingList = ShoppingList::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->make();
+        
+        $response = $this->actingAs($user)->post('/lists/' . $shoppingList->id . '/item/create', [
+            'name' => $item->name,
+            'price' => $item->price,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/lists/' . $shoppingList->id);
+            
+            $this->assertDatabaseHas('items', [
+                'name' => $item->name,
+                'price' => $item->price,
+            ]);
+    
+            $this->assertDatabaseHas('list_items', [
+                'item_id' => Item::where('name', $item->name)->first()->id,
+                'shopping_list_id' => $shoppingList->id,
+            ]);
+    }
 }
