@@ -17,6 +17,11 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'sqlite'),
+    // 'testing' => [
+    //     'driver' => 'sqlite',
+    //     'database' => ':memory:',
+    //     'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+    //   ],
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +113,6 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
-
     ],
 
     /*
