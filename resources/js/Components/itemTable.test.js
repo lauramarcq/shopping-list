@@ -7,8 +7,8 @@ describe("ItemTable", () => {
         list = [
             {
                 items: [
-                    { id: 1, name: "Item 1", price: 10 },
-                    { id: 2, name: "Item 2", price: 20 },
+                    { id: 1, name: "Item 1", price: 10, button: "Delete" },
+                    { id: 2, name: "Item 2", price: 20, button: "Delete" },
                 ],
             },
         ];
@@ -25,17 +25,20 @@ describe("ItemTable", () => {
 
     it("renders the correct headers", () => {
         const thElements = wrapper.findAll("th");
-        expect(thElements).toHaveLength(2);
+        expect(thElements).toHaveLength(3);
         expect(thElements[0].text()).toBe("Name");
         expect(thElements[1].text()).toBe("Price");
+        expect(thElements[2].text()).toBe("Actions");
     });
 
     it("it displays the correct data for each row", () => {
         const tdElements = wrapper.findAll("td");
-        expect(tdElements).toHaveLength(list[0].items.length * 2);
+        expect(tdElements).toHaveLength(list[0].items.length * 3);
         expect(tdElements[0].text()).toBe(list[0].items[0].name);
         expect(tdElements[1].text()).toBe(`£ ${list[0].items[0].price}`);
-        expect(tdElements[2].text()).toBe(list[0].items[1].name);
-        expect(tdElements[3].text()).toBe(`£ ${list[0].items[1].price}`);
+        expect(tdElements[2].text()).toBe(list[0].items[1].button);
+        expect(tdElements[3].text()).toBe(list[0].items[1].name);
+        expect(tdElements[4].text()).toBe(`£ ${list[0].items[1].price}`);
+        expect(tdElements[5].text()).toBe(list[0].items[1].button);
     });
 });

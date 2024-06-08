@@ -60,4 +60,22 @@ class ShoppingListController extends Controller
         }
     }
 
+    /**
+     * Delete an item from a list.
+     */
+    public function delete(Request $request): RedirectResponse
+    {
+        try {
+            $item = Item::find($request->itemId);
+            $item->shoppingLists()->detach($request->listId);
+            $item->delete();
+    
+            return Redirect::route('lists.get', ['listId' => $request->listId]);
+            
+        } catch (\Exception $e) {
+            Log::error('Error in ShoppingListController@delete: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
 }

@@ -23,6 +23,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard', [ShoppingListController::class, 'index'])->name('dashboard');
     Route::get('/lists/{listId}', [ShoppingListController::class, 'get'])->name('lists.get');
     Route::post('/lists/{listId}/item/create', [ShoppingListController::class, 'create'])->name('lists.create');
+    Route::delete('/lists/{listId}/{itemId}/delete', [ShoppingListController::class, 'delete'])->name('lists.delete');
 });
 
 Route::middleware('auth')->group(function () {
