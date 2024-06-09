@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr
-                v-for="listItem in list[0].items"
+                v-for="listItem in list.items"
                 :key="listItem.id"
                 class="bg-gray-100 border-b border-gray-200 hover:bg-gray-200 min-w-10"
             >

@@ -32,10 +32,9 @@ describe("ItemTable", () => {
 
     it("it displays the correct data for each row", () => {
         const tdElements = wrapper.findAll("td");
-        expect(tdElements).toHaveLength(list[0].items.length * 2);
-        expect(tdElements[0].text()).toBe(list[0].items[0].name);
+        expect(tdElements[0].text()).toBe(list.items[0].name);
         expect(tdElements[1].text()).toBe(`£ ${list[0].items[0].price}`);
-        expect(tdElements[2].text()).toBe(list[0].items[1].name);
-        expect(tdElements[3].text()).toBe(`£ ${list[0].items[1].price}`);
+        expect(tdElements[2].text()).toBe(list.items[1].name);
+        expect(tdElements[3].text()).toBe(`£ ${list.items[1].price}`);
     });
 });
