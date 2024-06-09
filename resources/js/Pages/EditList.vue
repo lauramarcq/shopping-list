@@ -55,7 +55,7 @@ const showDialog = ref(false);
         <CreateItem
             v-model="showDialog"
             :modelValue="showDialog"
-            :listId="list[0].id"
+            :listId="list.id"
         />
     </AuthenticatedLayout>
 </template>
