@@ -106,4 +106,26 @@ class ShoppingListTest extends TestCase
                 'shopping_list_id' => $shoppingList->id,
             ]);
     }
+
+    /**
+     * Test can update an item in a list.
+     *
+     * @return void
+     */
+    public function testToggle(){
+        $user = User::factory()->create();
+        $shoppingList = ShoppingList::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->create();
+        $shoppingList->items()->attach($item);
+
+        $response = $this->actingAs($user)->patch('/lists/' . $shoppingList->id . '/' . $item->id . '/toggle');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/lists/' . $shoppingList->id);
+            
+            $this->assertDatabaseHas('items', [
+                'id' => $item->id,
+                'bought' => true,
+            ]);
+    }
 }

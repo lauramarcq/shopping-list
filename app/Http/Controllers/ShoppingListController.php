@@ -11,6 +11,7 @@ use App\Models\Item;
 use App\Http\Requests\ItemCreateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Log;
 
 class ShoppingListController extends Controller
 {
@@ -74,6 +75,23 @@ class ShoppingListController extends Controller
             
         } catch (\Exception $e) {
             Log::error('Error in ShoppingListController@delete: ' . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * Toggle item bought state.
+     */
+    public function toggle(Request $request): RedirectResponse
+    {
+        try {
+            $item = Item::find($request->itemId);
+            $item->bought = !$item->bought;
+            $item->save();
+            return Redirect::route('lists.get', ['listId' => $request->listId]);
+            
+        } catch (\Exception $e) {
+            Log::error('Error in ShoppingListController@toggle: ' . $e->getMessage());
             throw $e;
         }
     }

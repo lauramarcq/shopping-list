@@ -6,8 +6,20 @@ describe("ItemTable", () => {
     beforeEach(() => {
         list = {
             items: [
-                { id: 1, name: "Item 1", price: 10, button: "Delete" },
-                { id: 2, name: "Item 2", price: 20, button: "Delete" },
+                {
+                    id: 1,
+                    name: "Item 1",
+                    price: 10,
+                    toggle: "Mark as bought",
+                    button: "Delete",
+                },
+                {
+                    id: 2,
+                    name: "Item 2",
+                    price: 20,
+                    toggle: "Mark as bought",
+                    button: "Delete",
+                },
             ],
         };
 
@@ -34,9 +46,29 @@ describe("ItemTable", () => {
         expect(tdElements).toHaveLength(list.items.length * 3);
         expect(tdElements[0].text()).toBe(list.items[0].name);
         expect(tdElements[1].text()).toBe(`£ ${list.items[0].price}`);
-        expect(tdElements[2].text()).toBe(list.items[0].button);
+        expect(tdElements[2].text()).toBe(
+            list.items[0].toggle + " " + list.items[0].button
+        );
         expect(tdElements[3].text()).toBe(list.items[1].name);
         expect(tdElements[4].text()).toBe(`£ ${list.items[1].price}`);
-        expect(tdElements[5].text()).toBe(list.items[1].button);
+        expect(tdElements[5].text()).toBe(
+            list.items[1].toggle + " " + list.items[1].button
+        );
+    });
+
+    it.skip("applies the correct class based on boughtItems", async () => {
+        const boughtItems = [1];
+        await wrapper.setProps({ boughtItems });
+
+        const trElements = wrapper.findAll("tr");
+
+        trElements.forEach((tr, index) => {
+            const listItem = list.items[index];
+            const expectedClass = boughtItems.includes(listItem.id)
+                ? "bg-green-100 border-b border-green-200 hover:bg-green-200 min-w-10 text-green-800"
+                : "bg-gray-100 border-b border-gray-200 hover:bg-gray-200 min-w-10";
+
+            expect(tr.classes()).toContain(expectedClass);
+        });
     });
 });
