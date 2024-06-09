@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr
-                    v-for="listItem in list[0].items"
+                    v-for="listItem in list.items"
                     :key="listItem.id"
                     :class="{
                         'bg-green-100 border-b border-green-200 hover:bg-green-200 min-w-10 text-green-800':
@@ -71,7 +71,7 @@ let toggleAlert = ref(false);
 let boughtItems = ref([]);
 
 const deleteItem = (itemId) => {
-    const listId = props.list[0].id;
+    const listId = props.list.id;
     router.delete(`/lists/${listId}/${itemId}/delete`, {
         onBefore: () => {
             //with more time, this would be a modal
@@ -84,9 +84,9 @@ const deleteItem = (itemId) => {
 };
 
 const toggleBought = (itemId) => {
-    const listId = props.list[0].id;
+    const listId = props.list.id;
     router.patch(`/lists/${listId}/${itemId}/toggle`);
-    if (props.list[0].items.find((item) => item.id === itemId)) {
+    if (props.list.items.find((item) => item.id === itemId)) {
         if (boughtItems.value.includes(itemId)) {
             boughtItems.value = boughtItems.value.filter((id) => id !== itemId);
         } else {

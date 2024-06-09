@@ -37,7 +37,7 @@ class ShoppingListController extends Controller
                 ->where('user_id', auth()->id())
                 ->where('id', $request->listId)
                 ->with('items')
-                ->get()
+                ->first()
         ]);
     }
 

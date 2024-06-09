@@ -31,7 +31,7 @@ const showDialog = ref(false);
                             <h2
                                 class="font-semibold text-xl text-gray-800 leading-tight self-center justify-self-start basis-1/4"
                             >
-                                {{ list[0].name }}
+                                {{ list.name }}
                             </h2>
                             <div class="basis-3/4 flex flex-row justify-end">
                                 <button
@@ -55,7 +55,7 @@ const showDialog = ref(false);
         <CreateItem
             v-model="showDialog"
             :modelValue="showDialog"
-            :listId="list[0].id"
+            :listId="list.id"
         />
     </AuthenticatedLayout>
 </template>
