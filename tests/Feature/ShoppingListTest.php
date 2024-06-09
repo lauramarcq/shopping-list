@@ -79,4 +79,31 @@ class ShoppingListTest extends TestCase
                 'shopping_list_id' => $shoppingList->id,
             ]);
     }
+
+    /**
+     * Test can delete an item from a list.
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $user = User::factory()->create();
+        $shoppingList = ShoppingList::factory()->create(['user_id' => $user->id]);
+        $item = Item::factory()->create();
+        $shoppingList->items()->attach($item);
+
+        $response = $this->actingAs($user)->delete('/lists/' . $shoppingList->id . '/' . $item->id . '/delete');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/lists/' . $shoppingList->id);
+            
+            $this->assertDatabaseMissing('items', [
+                'id' => $item->id,
+            ]);
+    
+            $this->assertDatabaseMissing('list_items', [
+                'item_id' => $item->id,
+                'shopping_list_id' => $shoppingList->id,
+            ]);
+    }
 }
