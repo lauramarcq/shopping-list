@@ -28,6 +28,16 @@ Login with
 -   test@example.com
 -   secret123
 
+Testing
+
+```sh
+./vendor/bin/phpunit
+```
+
+```sh
+npm test
+```
+
 All functionality sits within the Dashboard view.
 
 ## Comments
