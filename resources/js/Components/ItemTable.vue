@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr
-                    v-for="listItem in list[0].items"
+                    v-for="listItem in list.items"
                     :key="listItem.id"
                     class="bg-gray-100 border-b border-gray-200 hover:bg-gray-200 min-w-10"
                 >
@@ -60,7 +60,7 @@ const props = defineProps({
 let toggleAlert = ref(false);
 
 const deleteItem = (itemId) => {
-    const listId = props.list[0].id;
+    const listId = props.list.id;
     router.delete(`/lists/${listId}/${itemId}/delete`, {
         onBefore: () => {
             confirm("Are you sure you want to delete this item?");

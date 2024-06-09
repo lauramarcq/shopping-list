@@ -4,14 +4,12 @@ import ItemTable from "@/Components/ItemTable.vue";
 describe("ItemTable", () => {
     let wrapper, list;
     beforeEach(() => {
-        list = [
-            {
-                items: [
-                    { id: 1, name: "Item 1", price: 10, button: "Delete" },
-                    { id: 2, name: "Item 2", price: 20, button: "Delete" },
-                ],
-            },
-        ];
+        list = {
+            items: [
+                { id: 1, name: "Item 1", price: 10, button: "Delete" },
+                { id: 2, name: "Item 2", price: 20, button: "Delete" },
+            ],
+        };
 
         wrapper = shallowMount(ItemTable, {
             props: {
@@ -20,7 +18,7 @@ describe("ItemTable", () => {
         });
     });
     it("renders the table with correct number of rows", () => {
-        expect(wrapper.findAll("tr")).toHaveLength(list[0].items.length + 1); // +1 for the table header row
+        expect(wrapper.findAll("tr")).toHaveLength(list.items.length + 1); // +1 for the table header row
     });
 
     it("renders the correct headers", () => {
@@ -33,12 +31,12 @@ describe("ItemTable", () => {
 
     it("it displays the correct data for each row", () => {
         const tdElements = wrapper.findAll("td");
-        expect(tdElements).toHaveLength(list[0].items.length * 3);
-        expect(tdElements[0].text()).toBe(list[0].items[0].name);
-        expect(tdElements[1].text()).toBe(`£ ${list[0].items[0].price}`);
-        expect(tdElements[2].text()).toBe(list[0].items[1].button);
-        expect(tdElements[3].text()).toBe(list[0].items[1].name);
-        expect(tdElements[4].text()).toBe(`£ ${list[0].items[1].price}`);
-        expect(tdElements[5].text()).toBe(list[0].items[1].button);
+        expect(tdElements).toHaveLength(list.items.length * 3);
+        expect(tdElements[0].text()).toBe(list.items[0].name);
+        expect(tdElements[1].text()).toBe(`£ ${list.items[0].price}`);
+        expect(tdElements[2].text()).toBe(list.items[0].button);
+        expect(tdElements[3].text()).toBe(list.items[1].name);
+        expect(tdElements[4].text()).toBe(`£ ${list.items[1].price}`);
+        expect(tdElements[5].text()).toBe(list.items[1].button);
     });
 });

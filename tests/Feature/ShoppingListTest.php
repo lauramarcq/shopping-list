@@ -44,9 +44,9 @@ class ShoppingListTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertInertia(fn ($page) => $page->component('EditList')
-            ->where('list.0.name', $shoppingList->name)
-            ->where('list.0.items', $shoppingList->items)
-            ->where('list.0.items.0.id', $shoppingList->items->first()->id)
+            ->where('list.name', $shoppingList->name)
+            ->where('list.items', $shoppingList->items)
+            ->where('list.items.0.id', $shoppingList->items->first()->id)
         );
     }
 
