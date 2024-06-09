@@ -32,7 +32,7 @@ All functionality sits within the Dashboard view.
 
 ## Comments
 
-I managed to complete 2 of the stories within the 6 hours allowed (although stories 5 and 10 seem to be covered by the work done for 1 and 2). I had some issues setting up the jest configuration to work with vue3, and lost at least an hour on that. Inertia has also added another layer that makes jest testing slightly more complicated than I had anticipated. I've only just discovered Inertia and really wanted to give the monolith a go, so that slowed me down a bit as well.
+I managed to complete 2 of the stories within the 6 hours allowed. I had some issues setting up the jest configuration to work with vue3, and lost at least an hour on that. Inertia has also added another layer that makes jest testing slightly more complicated than I had anticipated. I've only just discovered Inertia and really wanted to give the monolith a go, so that slowed me down a bit as well.
 
 There are two open pull requests, story 1 and story 2, to make it easier to see the work committed per story.
 
