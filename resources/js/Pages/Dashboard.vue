@@ -1,6 +1,21 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/vue3";
+import ShoppingList from "@/Components/ShoppingList.vue";
+import { router } from "@inertiajs/vue3";
+
+let props = defineProps({
+    lists: {
+        required: true,
+    },
+    auth: {
+        type: Object,
+        required: true,
+    },
+});
+const editList = (listId) => {
+    router.visit(`/lists/${listId}`);
+};
 </script>
 
 <template>
@@ -8,13 +23,22 @@ import { Head } from '@inertiajs/vue3';
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                All your shopping lists
+            </h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
+                    <shopping-list
+                        v-for="list in lists"
+                        :key="list.id"
+                        :name="list.name"
+                        :createdAt="list.created_at"
+                        class="p-6"
+                        @editList="editList(list.id)"
+                    />
                 </div>
             </div>
         </div>
