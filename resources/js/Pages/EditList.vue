@@ -1,15 +1,18 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import ItemTable from "@/Components/ItemTable.vue";
+import CreateItem from "@/Components/CreateItem.vue";
 import { Head, Link } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 defineProps({
     list: {
         required: true,
     },
 });
-</script>
 
+const showDialog = ref(false);
+</script>
 <template>
     <Head title="Dashboard" />
 
@@ -33,6 +36,7 @@ defineProps({
                             <div class="basis-3/4 flex flex-row justify-end">
                                 <button
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full inline-block m-4"
+                                    @click="showDialog = true"
                                 >
                                     Add an Item
                                 </button>
@@ -48,5 +52,10 @@ defineProps({
                 </div>
             </div>
         </div>
+        <CreateItem
+            v-model="showDialog"
+            :modelValue="showDialog"
+            :listId="list.id"
+        />
     </AuthenticatedLayout>
 </template>

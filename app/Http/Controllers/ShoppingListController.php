@@ -8,6 +8,9 @@ use Inertia\Response;
 use App\Models\ShoppingList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Http\Requests\ItemCreateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class ShoppingListController extends Controller
 {
@@ -35,6 +38,26 @@ class ShoppingListController extends Controller
                 ->with('items')
                 ->first()
         ]);
+    }
+
+    /**
+     * Add an item to specific list.
+     */
+    public function create(ItemCreateRequest $request): RedirectResponse
+    {
+      
+        try {
+            $item = $request->validated();
+
+            $itemInstance = Item::create($item);
+            $itemInstance->shoppingLists()->attach(auth()->id(), ['shopping_list_id' => $request->listId]);
+    
+            return Redirect::route('lists.get', ['listId' => $request->listId]);
+            
+        } catch (\Exception $e) {
+            Log::error('Error in ShoppingListController@create: ' . $e->getMessage());
+            throw $e;
+        }
     }
 
 }
